@@ -1,45 +1,49 @@
 package InterfacesTerminal;
 
 import Systema.Sistema;
+import itens_e_pessoas.Conta;
+import itens_e_pessoas.Pessoa;
 import itens_e_pessoas.Produto;
 
 import java.util.Scanner;
 
-public class MenuCadastrado {
+public class MenuClienteCadastrado {
     static void main() {
         Scanner ler = new Scanner(System.in);
         Sistema sistema = new Sistema();
 
-        MenuCDS(ler,sistema);
     }
-    public static void MenuCDS(Scanner ler, Sistema sistema){
+    public static void MenuCDS(Scanner ler, Sistema sistema, Pessoa contalogada,Conta conta){
         int opcao;
 
         do{
-            System.out.println("== BLUE MARKET ==\n1-carrinho\n2-buscar produtos\n5-Sair");
+            System.out.println("== BLUE MARKET ==\n1 - Ver saldo\n2 - Depositar saldo\n3 - Ver produtos\n4 - Adicionar ao carrinho\n5 - Ver carrinho\n6 - Finalizar compra\n7 - Ver histórico de pedidos\n8 - Sair");
             opcao = ler.nextInt();
 
             switch (opcao){
                 case 1:
-                    mstraritens(ler, sistema);
+                    verSaldo(conta);
                     break;
                 case 2:
-                    addProduto(ler, sistema);
+
                     break;
                 case 3:
 
                     break;
                 case 4:
-
+                    addProduto(ler, sistema);
                     break;
                 case 5:
+                    mstraritens(ler, sistema);
+                    break;
+                case 8:
                     System.out.println("Saindo...");
                     break;
                 default:
                     System.out.println("");
             }
 
-        }while (opcao != 3);
+        }while (opcao != 8);
 
 
 
@@ -61,8 +65,12 @@ public class MenuCadastrado {
         System.out.println(sistema.getProdutos());
         System.out.println("==============");
 
-
-
     }
+    public static void verSaldo(Conta contalogada){
+        System.out.println("\n=== SALDO ATUAL ===\n");
+        System.out.println(contalogada.getSaldo());
+    }
+
 }
+
 

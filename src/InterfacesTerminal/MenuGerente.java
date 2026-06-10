@@ -1,5 +1,6 @@
 package InterfacesTerminal;
 
+import Systema.Sessao;
 import Systema.Sistema;
 import itens_e_pessoas.Conta;
 import itens_e_pessoas.Gerente;
@@ -15,7 +16,7 @@ public class MenuGerente {
 //        Gerente gerente = new Gerente("admin","12345678901","Fatmas'Bar");
 
 
-    }public static void menu(Scanner ler, Sistema sistema){
+    }public static void menu(Scanner ler, Sistema sistema,Sessao sessao){
         int opcao;
         do{
             System.out.println("== Menu ==\n1-verificar conta\n2-verificar cliente\n3-Recuperar conta pelo indíce\n4-verificar se cliente possui conta\n5-Remover Conta\n6-Sair");
@@ -38,12 +39,12 @@ public class MenuGerente {
                     case 5:
 
                     case 6:
-                        System.out.println("Saindo...");
-                        break;
+                        sessao.sairConta();
+                        return;
                     default:
                         System.out.println("ERRO!\nopção inválida!");
                 }
-        }while (opcao != 5);
+        }while (opcao != 6);
 
     }private static Conta verificarCliente(Scanner ler, Sistema sistema){
 
@@ -55,7 +56,7 @@ public class MenuGerente {
         }
 
         for (Conta conta: sistema.getCOntas()){
-            if (conta.getCliente().getCpf().equalsIgnoreCase(cpf)){
+            if (conta.getPessoa().getCpf().equalsIgnoreCase(cpf)){
                 System.out.println("CPF VÁLIDO!\n" + conta );
 
                 return conta;
@@ -83,8 +84,8 @@ public class MenuGerente {
         String cpf = ler.nextLine();
 
         for(Conta conta: sistema.getCOntas()){
-            if(conta.getCliente().getCpf().equalsIgnoreCase(cpf)){
-                System.out.println("Usuario encontrado\nBem-vindo: " + conta.getCliente().getNome());
+            if(conta.getPessoa().getCpf().equalsIgnoreCase(cpf)){
+                System.out.println("Usuario encontrado\nBem-vindo: " + conta.getPessoa().getNome());
 
                 System.out.println("informe o numero da sua conta: ");
                 int numero = ler.nextInt();
@@ -93,7 +94,7 @@ public class MenuGerente {
                 if(conta.getNumero() == numero){
                     System.out.println("Acesso Concluído!\n" + conta);
                 }else{
-                    System.out.println("ERRO!\nitens_e_pessoas.Conta inoperante!");
+                    System.out.println("ERRO!\nConta inoperante!");
                     return;
                 }
             }

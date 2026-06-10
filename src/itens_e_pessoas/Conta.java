@@ -3,11 +3,11 @@ package itens_e_pessoas;
 public class Conta  {
     private int numero; //seria um id
     private double saldo;
-    private Cliente cliente;
+    private Pessoa pessoa;
 
-    public Conta(int numero, Cliente cliente){
+    public Conta(int numero,Pessoa pessoa){
         this.numero = numero;
-        this.cliente = cliente;
+        this.pessoa = pessoa;
         this.saldo = 0;
 
     }public void depositar(double valor){
@@ -34,13 +34,17 @@ public class Conta  {
         return saldo;
 
     }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
     @Override
     public String toString(){
         return "| Saldo: " + saldo +
-                " | Numero: " + numero + cliente;
+                " | Numero: " + numero + pessoa;
 
-    }public Cliente getCliente(){
-        return cliente;
+
 
     }public int getNumero(){
         return numero;

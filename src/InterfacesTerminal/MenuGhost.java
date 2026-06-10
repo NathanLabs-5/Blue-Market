@@ -3,7 +3,7 @@ package InterfacesTerminal;
 
 
 import Systema.Sistema;
-import itens_e_pessoas.Cliente;
+import itens_e_pessoas.Pessoa;
 import itens_e_pessoas.Produto;
 
 import java.util.Scanner;
@@ -18,11 +18,11 @@ public class MenuGhost {
 
     }
 
-    public static void MenuGst(Scanner ler, Sistema sistema) {
+    public static void MenuGst(Scanner ler, Sistema sistema, Pessoa contaLogada) {
         int opcao;
 
         do {
-            System.out.println("== BLUE MARKET ==\n1-carrinho(mostrar itens)\n2-buscar produtos(add no carrinho\n3-Entrar(sua conta/cookies e etc)\n4-Criar Conta(te da acesso a cookies e etc)\n5-Sair");
+            System.out.println("== BLUE MARKET ==\n1-carrinho\n2-buscar produtos\n3-Criar Conta)\n4-Sair");
             opcao = ler.nextInt();
 
             switch (opcao) {
@@ -32,18 +32,16 @@ public class MenuGhost {
                 case 2:
                     addProduto(ler, sistema);
                     break;
+
                 case 3:
-                    sistema.simnaoCadastro(ler,sistema);
+                    sistema.cadastrarConta(ler);
                     break;
                 case 4:
-                    sistema.cadastrarConta(ler, sistema);
-                    break;
-                case 5:
                     System.out.println("Saindo...");
                     break;
             }
 
-        } while (opcao != 3);
+        } while (opcao != 4);
 
 
     }
@@ -69,15 +67,5 @@ public class MenuGhost {
 
 
     }
-
-    public static void entrarConta(Scanner ler, Sistema sistema, Cliente C1) {
-        System.out.println("informe seu cpf: ");
-        String cpf = ler.nextLine();
-
-        if (C1.getCpf().equalsIgnoreCase(cpf)) {
-            MenuCadastrado.MenuCDS(ler,sistema);
-
-
-        }
-    }
 }
+

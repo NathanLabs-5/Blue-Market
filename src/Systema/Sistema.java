@@ -1,6 +1,6 @@
 package Systema;
 
-import InterfacesTerminal.MenuCadastrado;
+import InterfacesTerminal.MenuClienteCadastrado;
 import itens_e_pessoas.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,17 +9,18 @@ public class Sistema {
     private ArrayList<Conta> contas;
     private ArrayList<Produto> produtos;
     private ArrayList<Pedido> pedidos;
-    private ArrayList<Gerente> gerentes;
+    private ArrayList<Pessoa> pessoas;
     private static int contador;
 
     public Sistema(){
         this.contas = new ArrayList<>();
         this.pedidos = new ArrayList<>();
         this.produtos = new ArrayList<>();
-        this.gerentes = new ArrayList<>();
+        this.pessoas = new ArrayList<>();
 
         Gerente admin = new Gerente("Admin","1233456789","Empresa");
-        gerentes.add(admin);
+        pessoas.add(admin);
+
 
     }
     public ArrayList<Conta> getCOntas(){
@@ -30,7 +31,8 @@ public class Sistema {
         return produtos;
     }
 
-    public void cadastrarConta(Scanner ler, Sistema sistema) {
+    public void cadastrarConta(Scanner ler) {
+        ler.nextLine();
         System.out.println("== Cadastro ==\ninforme seu nome: ");
         String nome = ler.nextLine();
 
@@ -55,49 +57,57 @@ public class Sistema {
             return;
         }
 
-        Cliente user1 = new Cliente(nome, cpf, endereco);
-        Conta C1 = new Conta(Sistema.contador, user1);
+        Pessoa user1 = new Cliente(nome, cpf, endereco);
+        pessoas.add(user1);
 
-        sistema.getCOntas().add(C1);
+        Conta C1 = new Conta(Sistema.contador, user1);
+        contas.add(C1);
 
         System.out.println("CONTA REGISTRADA COM SUCESSO!");
-
-
         Sistema.contador++;
 
 
-    }public ArrayList<Conta> simnaoCadastro(Scanner ler,Sistema Sistema){
 
 
-        System.out.println("Possui conta?\n[S/N]");
-        String resposta = ler.nextLine();
+    }public Pessoa loginOuCadastro(Scanner ler) {
+        System.out.println("Possui conta? [S/N]");
+        String resp = ler.nextLine();
 
-        if (resposta.isEmpty()){
-            System.out.println("ERRO!escolha uma opção");
-        }
-
-        if(resposta.equalsIgnoreCase("sim") || resposta.equalsIgnoreCase("s")){
-            for(Conta conta: contas){
-
-                System.out.println("informe seu cpf: ");
-                String cpf = ler.nextLine();
-
-
-                if(conta.getCliente().getCpf().equalsIgnoreCase(cpf)){
-                    MenuCadastrado.MenuCDS(ler,Sistema);
-
-                }
-
-            }
+        if (resp.equalsIgnoreCase("n") || resp.equalsIgnoreCase("nao") || resp.equalsIgnoreCase("não")){
+            cadastrarConta(ler);
             return null;
-        }
-        if(resposta.equalsIgnoreCase("não") || resposta.equalsIgnoreCase("n") || resposta.equalsIgnoreCase("no") || resposta.equalsIgnoreCase("nao")){
-            Sistema.cadastrarConta(ler, Sistema);
 
+        }else if(resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("sim")){
+            System.out.print("CPF: ");
+            String cpf = ler.nextLine();
+
+            System.out.println("Pessoas cadastradas:");
+            for (Pessoa p : pessoas) {
+                System.out.println(p.getNome() + " -> " + p.getCpf());
+                if (p.getCpf().equals(cpf)) {
+                    System.out.println("CPF digitado: " + cpf);
+                    return p;
+                }
+            }
+
+            System.out.println("Conta não encontrada!");
+            return null;
+        }else{
+            System.out.println("ERRO!opção inválida");
+        }
+        return null;
+    }
+    public Conta buscarConta(String cpf){
+        for(Conta c : contas){
+            if(c.getPessoa().getCpf().equals(cpf)){
+                return c;
+            }
         }
         return null;
 
     }
+
+
 
 }
 
