@@ -20,6 +20,22 @@ public class Produto {
         this.nome = nome;
     }
 
+    public double getPreco() {
+        return preco;
+    }
+
+    public int getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(int estoque) {
+        this.estoque = estoque;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
     @Override
     public String toString() {
         return "|Nome: " + nome + "\n" + "|preço: " + preco + "\n" + "|estoque: " + estoque;

@@ -13,11 +13,11 @@ public class MenuClienteCadastrado {
         Sistema sistema = new Sistema();
 
     }
-    public static void MenuCDS(Scanner ler, Sistema sistema, Pessoa contalogada,Conta conta){
+    public static void MenuCDS(Scanner ler, Sistema sistema, Pessoa contalogada, Conta conta){
         int opcao;
 
         do{
-            System.out.println("== BLUE MARKET ==\n1 - Ver saldo\n2 - Depositar saldo\n3 - Ver produtos\n4 - Adicionar ao carrinho\n5 - Ver carrinho\n6 - Finalizar compra\n7 - Ver histórico de pedidos\n8 - Sair");
+            System.out.println("== BLUE MARKET ==\n1 - Ver saldo\n2 - Depositar saldo\n3 - Ver produtos\n4 - Adicionar ao carrinho\n5 - Ver carrinho\n6 - Finalizar compra\n7 - Sair");
             opcao = ler.nextInt();
 
             switch (opcao){
@@ -37,10 +37,9 @@ public class MenuClienteCadastrado {
                     mstraritens(ler, sistema);
                     break;
                 case 6:
+                    finalizarCmpra(conta,ler,sistema);
                     break;
                 case 7:
-                    break;
-                case 8:
                     System.out.println("Saindo...");
                     break;
                 default:
@@ -96,7 +95,36 @@ public class MenuClienteCadastrado {
         System.out.println(sistema.getProdutos());
 
     }
+    public static void finalizarCmpra(Conta conta,Scanner ler,Sistema sistema){
+        ler.nextLine();
+        System.out.println(conta.getCarrinho() + "\n");
 
+
+        Produto comprado = null;
+
+        System.out.println("informe o nome do item pra finalizar a compra: ");
+        String item = ler.nextLine();
+
+
+
+        for(Produto p : conta.getCarrinho()){
+            if (item.equalsIgnoreCase(p.getNome())){
+
+                if (conta.getSaldo() >= p.getPreco()){
+                     conta.sacar(p.getPreco());
+                     comprado = p;
+                    System.out.println("compra realizada com sucesso!");
+
+                }else {
+                    System.out.println("Saldo insuficiente.");
+                }
+            break;
+            }
+        }
+
+        if(comprado != null){
+            conta.getCarrinho().remove(comprado);
+        }
+
+    }
 }
-
-

@@ -1,10 +1,7 @@
 package InterfacesTerminal;
 
 import Systema.*;
-import itens_e_pessoas.Cliente;
-import itens_e_pessoas.Conta;
-import itens_e_pessoas.Gerente;
-import itens_e_pessoas.Pessoa;
+import itens_e_pessoas.*;
 
 import java.util.Scanner;
 

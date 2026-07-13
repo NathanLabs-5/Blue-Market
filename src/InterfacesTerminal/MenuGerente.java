@@ -14,10 +14,7 @@ import static Systema.Sistema.contadorItens;
 public class MenuGerente {
     public static void main(String[] args) {
         Scanner ler = new Scanner(System.in);
-
         Sistema sistema = new Sistema();
-//        Gerente gerente = new Gerente("admin","12345678901","Fatmas'Bar");
-
 
     }public static void menu(Scanner ler, Sistema sistema,Sessao sessao){
         int opcao;
@@ -40,7 +37,8 @@ public class MenuGerente {
                         verificarClienteConta(ler,sistema);
                         break;
                     case 5:
-
+                        ExcluirConta(ler, sistema, sessao);
+                        break;
                     case 6:
                         addProd(ler, sistema);
                         break;
@@ -129,9 +127,23 @@ public class MenuGerente {
 
 
     }
-    public static void removerConta(Scanner ler,Sistema sistema){
+    public static void ExcluirConta(Scanner ler,Sistema sistema,Sessao sessao){
+        System.out.println("informe o cpf da conta que deseja excluir: ");
+        String cpf = ler.nextLine();
 
+        Conta conta = sistema.buscarConta(cpf);
 
+        if(conta != null){
+            if(sessao.getContaLogada()==conta){
+                sessao.setContaLogada(null);
+            }
+
+            sistema.removerconta(cpf);
+            System.out.println("Conta removida com sucesso!");
+
+        }else{
+            System.out.println("Conta não encontrada.");
+        }
     }
     public static void addProd(Scanner ler, Sistema sistema){
         System.out.println("informe o nome do produto: ");

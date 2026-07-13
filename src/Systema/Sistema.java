@@ -18,7 +18,7 @@ public class Sistema {
         this.produtos = new ArrayList<>();
         this.pessoas = new ArrayList<>();
 
-        Gerente admin = new Gerente("Admin","1233456789","Empresa");
+        Gerente admin = new Gerente("admin","12345678901","Fatmas'Bar");
         pessoas.add(admin);
 
         produtos.add(new Produto("arroz",7.0,contadorItens));
@@ -109,7 +109,17 @@ public class Sistema {
         return null;
 
     }
+    public boolean removerconta(String cpf){
+        Conta conta = buscarConta(cpf);
 
+        if(conta != null){
+            contas.remove(conta);
+            return true;
+
+        }
+        return false;
+
+    }
 
 
 }

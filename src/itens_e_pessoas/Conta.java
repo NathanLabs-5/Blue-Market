@@ -22,7 +22,7 @@ public class Conta  {
         }
 
 
-    }public void sacar(double valor) {
+    }public double sacar(double valor) {
 
         if(valor <= 0){
             System.out.println("Saque indisponível!");
@@ -34,6 +34,7 @@ public class Conta  {
         }
 
 
+        return valor;
     }public double getSaldo(){
         return saldo;
 
@@ -61,4 +62,5 @@ public class Conta  {
     public void adicionarAoCarrinho(Produto produto){
         carrinho.add(produto);
     }
+
 }
