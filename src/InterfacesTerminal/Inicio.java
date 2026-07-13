@@ -20,45 +20,47 @@ public class Inicio {
 
     public static void iniciar(Scanner ler, Sistema sistema, Sessao sessao) {
 
-        while (true) {
-            Pessoa contaLogada = sistema.loginOuCadastro(ler);
+    int opcao;
+    do {
+        System.out.println("=== CONFIGURAÇÕES ===\n1-Entrar\n2-Criar Conta\n3-Sair");
+        opcao = ler.nextInt();
 
-            int opcao;
-            do {
-                System.out.println("=== CONFIGURAÇÕES ===\n1-Entrar\n2-Criar Conta\n3-Sair");
-                opcao = ler.nextInt();
+        switch (opcao){
+            case 1:
+                ler.nextLine();
+                Pessoa contaLogada = sistema.loginOuCadastro(ler);
 
-                switch (opcao){
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        System.out.println("ERRO!opção inválida!");
+                if (contaLogada == null) {
+                    MenuGhost.MenuGst(ler, sistema, contaLogada);
+
                 }
+                if (contaLogada != null) {
+                    if (contaLogada instanceof Gerente) {
+                        MenuGerente.menu(ler, sistema,sessao);
 
+                    } else if (contaLogada instanceof Cliente) {
 
-            }while (opcao != 3);
-
-            if (contaLogada == null) {
-                MenuGhost.MenuGst(ler, sistema, contaLogada);
-
-            }
-            if (contaLogada != null) {
-                if (contaLogada instanceof Gerente) {
-                    MenuGerente.menu(ler, sistema,sessao);
-
-                } else if (contaLogada instanceof Cliente) {
-
-                    Conta conta = sistema.buscarConta(contaLogada.getCpf());
-                    MenuClienteCadastrado.MenuCDS(ler, sistema, contaLogada,conta);
-                }else {
-                    System.out.println("ERRO");
+                        Conta conta = sistema.buscarConta(contaLogada.getCpf());
+                        MenuClienteCadastrado.MenuCDS(ler, sistema, contaLogada,conta);
+                    }else {
+                        System.out.println("ERRO");
+                    }
                 }
-            }
+                break;
+            case 2:
+                sistema.loginOuCadastro(ler);
+                break;
+            case 3:
+                return;
+            default:
+                System.out.println("ERRO!opção inválida!");
         }
+
+
+    }while (opcao != 3);
+
+
+
 
 
     }

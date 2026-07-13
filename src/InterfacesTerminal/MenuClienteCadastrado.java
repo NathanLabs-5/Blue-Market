@@ -25,22 +25,26 @@ public class MenuClienteCadastrado {
                     verSaldo(conta);
                     break;
                 case 2:
-
+                    depositar(conta,ler);
                     break;
                 case 3:
-
+                    produtos(sistema);
                     break;
                 case 4:
-                    addProduto(ler, sistema);
+                    addProdutoCarrin(ler,sistema,conta);
                     break;
                 case 5:
                     mstraritens(ler, sistema);
+                    break;
+                case 6:
+                    break;
+                case 7:
                     break;
                 case 8:
                     System.out.println("Saindo...");
                     break;
                 default:
-                    System.out.println("");
+                    System.out.println("erro!opção inválida");
             }
 
         }while (opcao != 8);
@@ -48,27 +52,49 @@ public class MenuClienteCadastrado {
 
 
 
-    }public static void addProduto(Scanner ler,Sistema sistema){
+    }public static void addProdutoCarrin(Scanner ler,Sistema sistema,Conta conta){
+        ler.nextLine();
+
         System.out.println("informe o item que procura: ");
         String item = ler.nextLine();
 
-        if(item.isEmpty()){
-            System.out.println("ERRO!\ninforme um valor.");
-            return;
+        for(Produto p : sistema.getProdutos()){
+            if (item.equalsIgnoreCase(p.getNome())){
+                conta.adicionarAoCarrinho(p);
+
+                System.out.println("item adicionado ao carrinho!");
+                return;
+            }
         }
-        sistema.getProdutos().add(new Produto(item));
-        System.out.println("item cadastrado com sucesso!");
+        System.out.println("Produto não encontrado.");
+
+
     }
     public static void mstraritens(Scanner ler,Sistema sistema) {
 
-        System.out.println("== PRODUTOS ==");
-        System.out.println(sistema.getProdutos());
+        System.out.println("== CARRINHO ==");
+        System.out.println(sistema.getProdutos().toString());
         System.out.println("==============");
 
     }
     public static void verSaldo(Conta contalogada){
         System.out.println("\n=== SALDO ATUAL ===\n");
         System.out.println(contalogada.getSaldo());
+    }
+    public static void depositar(Conta conta,Scanner ler){
+        System.out.println("\n=== DEPÓSITO ===\n");
+        System.out.println("informe a quantia a ser adicionada: ");
+
+        double addValor = ler.nextDouble();
+
+        conta.depositar(addValor);
+        System.out.println("=== DEPÓSITO CONCLUIDO ===");
+
+    }
+    public static void produtos(Sistema sistema){
+        System.out.println("=== CARRINHO ===");
+        System.out.println(sistema.getProdutos());
+
     }
 
 }

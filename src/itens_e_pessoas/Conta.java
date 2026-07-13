@@ -1,14 +1,18 @@
 package itens_e_pessoas;
 
+import java.util.ArrayList;
+
 public class Conta  {
     private int numero; //seria um id
     private double saldo;
     private Pessoa pessoa;
+    ArrayList<Produto> carrinho;
 
     public Conta(int numero,Pessoa pessoa){
         this.numero = numero;
         this.pessoa = pessoa;
         this.saldo = 0;
+        this.carrinho = new ArrayList<>();
 
     }public void depositar(double valor){
         if(valor > 0){
@@ -51,5 +55,10 @@ public class Conta  {
 
     }
 
-
+    public ArrayList<Produto> getCarrinho() {
+        return carrinho;
+    }
+    public void adicionarAoCarrinho(Produto produto){
+        carrinho.add(produto);
+    }
 }

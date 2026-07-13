@@ -30,9 +30,8 @@ public class MenuGhost {
                     mstrarItens(ler, sistema);
                     break;
                 case 2:
-                    addProduto(ler, sistema);
-                    break;
 
+                    break;
                 case 3:
                     sistema.cadastrarConta(ler);
                     break;
@@ -46,18 +45,17 @@ public class MenuGhost {
 
     }
 
-    public static void addProduto(Scanner ler, Sistema sistema) {
-        ler.nextLine();
-        System.out.println("informe o item que procura: ");
-        String item = ler.nextLine();
-
-        if (item.isEmpty()) {
-            System.out.println("ERRO!\ninforme um valor.");
-            return;
-        }
-        sistema.getProdutos().add(new Produto(item));
-        System.out.println("item cadastrado com sucesso!");
-    }
+//    public static void addProduto(Scanner ler, Sistema sistema) {
+//        ler.nextLine();
+//        System.out.println("informe o item que procura: ");
+//        String item = ler.nextLine();
+//
+//        if (item.isEmpty()) {
+//            System.out.println("ERRO!\ninforme um valor.");
+//            return;
+//        }
+//        sistema.getProdutos().add(new Produto(item));
+//        System.out.println("item cadastrado com sucesso!");
 
     public static void mstrarItens(Scanner ler, Sistema sistema) {
 
@@ -68,4 +66,6 @@ public class MenuGhost {
 
     }
 }
+
+
 

@@ -1,6 +1,5 @@
 package Systema;
 
-import InterfacesTerminal.MenuClienteCadastrado;
 import itens_e_pessoas.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,7 +9,8 @@ public class Sistema {
     private ArrayList<Produto> produtos;
     private ArrayList<Pedido> pedidos;
     private ArrayList<Pessoa> pessoas;
-    private static int contador;
+    public static int contador;
+    public static int contadorItens;
 
     public Sistema(){
         this.contas = new ArrayList<>();
@@ -20,6 +20,8 @@ public class Sistema {
 
         Gerente admin = new Gerente("Admin","1233456789","Empresa");
         pessoas.add(admin);
+
+        produtos.add(new Produto("arroz",7.0,contadorItens));
 
 
     }
@@ -70,6 +72,7 @@ public class Sistema {
 
 
     }public Pessoa loginOuCadastro(Scanner ler) {
+        ler.nextLine();
         System.out.println("Possui conta? [S/N]");
         String resp = ler.nextLine();
 
@@ -83,7 +86,7 @@ public class Sistema {
 
             System.out.println("Pessoas cadastradas:");
             for (Pessoa p : pessoas) {
-                System.out.println(p.getNome() + " -> " + p.getCpf());
+//                System.out.println(p.getNome() + " -> " + p.getCpf());
                 if (p.getCpf().equals(cpf)) {
                     System.out.println("CPF digitado: " + cpf);
                     return p;

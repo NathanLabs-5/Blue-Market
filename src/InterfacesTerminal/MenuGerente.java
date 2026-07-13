@@ -4,9 +4,12 @@ import Systema.Sessao;
 import Systema.Sistema;
 import itens_e_pessoas.Conta;
 import itens_e_pessoas.Gerente;
+import itens_e_pessoas.Produto;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static Systema.Sistema.contadorItens;
 
 public class MenuGerente {
     public static void main(String[] args) {
@@ -19,7 +22,7 @@ public class MenuGerente {
     }public static void menu(Scanner ler, Sistema sistema,Sessao sessao){
         int opcao;
         do{
-            System.out.println("== Menu ==\n1-verificar conta\n2-verificar cliente\n3-Recuperar conta pelo indíce\n4-verificar se cliente possui conta\n5-Remover Conta\n6-Sair");
+            System.out.println("== Menu ==\n1-verificar conta\n2-verificar cliente\n3-Recuperar conta pelo indíce\n4-verificar se cliente possui conta\n5-Remover Conta\n6-Adicionar Produtos ao estoque\n7-Sair");
             opcao = ler.nextInt();
             ler.nextLine();
 
@@ -39,6 +42,9 @@ public class MenuGerente {
                     case 5:
 
                     case 6:
+                        addProd(ler, sistema);
+                        break;
+                    case 7:
                         sessao.sairConta();
                         return;
                     default:
@@ -125,6 +131,21 @@ public class MenuGerente {
     }
     public static void removerConta(Scanner ler,Sistema sistema){
 
+
+    }
+    public static void addProd(Scanner ler, Sistema sistema){
+        System.out.println("informe o nome do produto: ");
+        String item = ler.nextLine();
+
+        if(item.isEmpty()){
+            System.out.println("ERRO!\ninforme um valor.");
+            return;
+        }
+        System.out.println("informe o preço do produto: ");
+        double preco = ler.nextDouble();
+
+        sistema.getProdutos().add(new Produto(item,preco,contadorItens));
+        System.out.println("item cadastrado com sucesso!");
 
     }
 }
