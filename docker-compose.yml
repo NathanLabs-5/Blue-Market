@@ -1,0 +1,20 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: blue-market-mysql
+    environment:
+      MYSQL_DATABASE: blue_market
+      MYSQL_USER: blue_market_user
+      MYSQL_PASSWORD: ${DB_PASSWORD:-blue_market_dev}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_dev_only}
+    ports:
+      - "3307:3306"
+    volumes:
+      - blue_market_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD","mysqladmin","ping","-h","localhost","-u","root","-p${MYSQL_ROOT_PASSWORD:-root_dev_only}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  blue_market_data:
